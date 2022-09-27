@@ -1,19 +1,20 @@
 let prevWidth = 0;
+const minWidth = 640;
 const adjustSize = (textarea) => {
     const currentWidth = window.innerWidth;
     let columnNum;
-    if (currentWidth < 640) {
-        console.log('col size: 1');
+    if ((prevWidth == 0 || prevWidth >= minWidth) && currentWidth < minWidth) {
         document.querySelector('#textarea-right').style.display = 'none';
         columnNum = 1;
-    } else {
-        console.log('col size: 2');
+
+    } else if (prevWidth < minWidth && currentWidth >= minWidth) {
         document.querySelector('#textarea-right').style.display = 'block';
         columnNum = 2;
     }
-    // これは毎回計算する必要がある
     textarea.style.width  = (currentWidth / columnNum - 21) + 'px';
     textarea.style.height = (window.innerHeight) + 'px';
+
+    prevWidth = currentWidth;
 }
 
 document.addEventListener('keydown', ev => {
