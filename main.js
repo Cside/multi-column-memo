@@ -1,20 +1,34 @@
-let prevWidth = 0;
-const minWidth = 640;
-const adjustSize = (textarea) => {
-  const currentWidth = window.innerWidth;
-  let columnNum;
-  if ((prevWidth == 0 || prevWidth >= minWidth) && currentWidth < minWidth) {
-    document.querySelector('#textarea-right').style.display = 'none';
-    columnNum = 1;
+{
+  let prevWidth = 0;
+  const minWidth = 640;
+  const adjustSize = () => {
+    const currentWidth = window.innerWidth;
+    const currentHeight = window.innerHeight;
+    let columnNum;
 
-  } else if (prevWidth < minWidth && currentWidth >= minWidth) {
-    document.querySelector('#textarea-right').style.display = 'block';
-    columnNum = 2;
+    const textareaRight = document.querySelector('#textarea-right');
+    const textareaLeft = document.querySelector('#textarea-left');
+
+    if (currentWidth < minWidth) {
+      columnNum = 1;
+      if (prevWidth == 0 || prevWidth >= minWidth)
+        textareaRight.style.display = 'none';
+
+    } else {
+      columnNum = 2;
+      if (prevWidth < minWidth)
+        textareaRight.style.display = 'block';
+    }
+
+    for (const textarea of (columnNum == 2 ? [textareaLeft, textareaRight] : [textareaLeft])) {
+      textarea.style.width = (currentWidth / columnNum - 21) + 'px';
+      textarea.style.height = currentHeight + 'px';
+    }
+
+    prevWidth = currentWidth;
   }
-  textarea.style.width  = (currentWidth / columnNum - 21) + 'px';
-  textarea.style.height = (window.innerHeight) + 'px';
-
-  prevWidth = currentWidth;
+  window.addEventListener('resize', adjustSize);
+  adjustSize();
 }
 
 document.addEventListener('keydown', ev => {
@@ -28,14 +42,9 @@ for (const id of ['#textarea-left', '#textarea-right']) {
 
   textarea.value = localStorage[id] ?? "";
 
-  window.addEventListener('resize', () => {
-    adjustSize(textarea);
-  });
   textarea.addEventListener('input', () => {
     localStorage[id] = textarea.value;
   });
-
-  adjustSize(textarea);
 }
 
 function input_tab(event) {
