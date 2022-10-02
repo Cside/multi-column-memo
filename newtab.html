@@ -8,9 +8,14 @@
         <textarea id="textarea-left"  style="overflow: scroll"></textarea>
         <textarea id="textarea-right" style="overflow: scroll"></textarea>
         <style type="text/css">
+           html {
+               border-top: solid 3px orange;
+               --bg-color: #003333; /* prev: #1B1D1E; */
+           }
            textarea {
-               background-color: #1B1D1E;
-               color: #F8F8F2;
+               /* background-color: #1B1D1E; */
+               background-color: var(--bg-color);
+               color: #FFFFFF;
                font-size: 16px;
                line-height: 1.2em;
                display: block;
@@ -22,8 +27,8 @@
                overflow: hidden;
            }
            body {
-               background-color: #1B1D1E;
-               color: #F8F8F2;
+               border-top: solid 3px var(--bg-color);
+               background-color: var(--bg-color);
                margin: 0px;
                overflow: hidden;
            };
