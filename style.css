@@ -20,6 +20,3 @@ body {
     padding: 0px;
     display: flex;
 }
-* {
-    outline: 1px pink dotted;
-}
