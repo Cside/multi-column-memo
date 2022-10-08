@@ -10,37 +10,46 @@ const toggle_visibility = (elem: HTMLElement) => {
 };
 
 const CONFIG = {
-  colmns: [
+  columns: [
     { minWidth: 0 },
     { minWidth: 640 },
     { minWidth: 1_000 },
   ],
 };
 
-const TEXTAREAS: HTMLTextAreaElement[] = [];
-for (const [i] of CONFIG.colmns.entries()) {
-  const textarea = document.createElement('textarea');
-  textarea.id = `${i}`;
-  TEXTAREAS.push(textarea);
-  document.body.appendChild(textarea);
+const COLUMNS: HTMLTextAreaElement[] = [];
+for (const [i] of CONFIG.columns.entries()) {
+  const col = document.createElement('textarea');
+  col.id = `${i}`;
+  COLUMNS.push(col);
+  document.body.appendChild(col);
 }
+
+let PREV_COLS_LENGTH = 0;
 const adjust = () => {
-  const width = window.innerWidth;
-  const visibleColumns: { minWidth: number }[] = [];
-  for (const eachConfig of CONFIG.colmns) {
-    if (eachConfig.minWidth <= width) {
-      visibleColumns.push(eachConfig);
+  const visibleCols: HTMLTextAreaElement[] = [];
+  for (const [i, eachConfig] of CONFIG.columns.entries()) {
+    if (eachConfig.minWidth <= window.innerWidth) {
+      visibleCols.push(COLUMNS[i]);
     } else {
       break;
     }
   }
-  for (const [i, textarea] of TEXTAREAS.entries()) {
-    if (i < visibleColumns.length) {
-      textarea.style.display = 'block';
+  for (const [i, col] of COLUMNS.entries()) {
+    if (i < visibleCols.length) {
+      col.style.display = 'block';
     } else {
-      textarea.style.display = 'none';
+      col.style.display = 'none';
     }
   }
+  if (PREV_COLS_LENGTH !== visibleCols.length) {
+    console.log('## size changed');
+  }
+  for (const col of visibleCols) {
+    col.style.width = (((window.innerWidth) / visibleCols.length)) + 'px';
+    col.style.height = (window.innerHeight - 20) + 'px';
+  }
+  PREV_COLS_LENGTH = visibleCols.length;
 };
 window.addEventListener('resize', adjust);
 adjust();

@@ -1,6 +1,6 @@
 html {
-    border-top: solid 3px orange;
     --bg-color: #003333;
+    padding: 0px;
 }
 textarea {
     background-color: var(--bg-color);
@@ -8,16 +8,18 @@ textarea {
     font-size: 16px;
     line-height: 1.2em;
     display: block;
-    float: left;
-    padding: 10px !important;
+    margin: 0px;
+    padding: 10px;
     border: none;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    overflow: hidden;
+    overflow: scroll;
 }
 body {
-    border-top: solid 3px var(--bg-color);
+    /* border-top: solid 3px var(--bg-color); */
     background-color: var(--bg-color);
     margin: 0px;
-    overflow: hidden;
+    padding: 0px;
+    display: flex;
+}
+* {
+    outline: 1px pink dotted;
 }
