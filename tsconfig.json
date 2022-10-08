@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "module": "ESNext",
+        "target": "ESNext",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "sourceMap": false,
+        "noEmitOnError": true,
+        "jsx": "react",
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    }
+}

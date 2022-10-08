@@ -1,0 +1,23 @@
+html {
+    border-top: solid 3px orange;
+    --bg-color: #003333;
+}
+textarea {
+    background-color: var(--bg-color);
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 1.2em;
+    display: block;
+    float: left;
+    padding: 10px !important;
+    border: none;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    overflow: hidden;
+}
+body {
+    border-top: solid 3px var(--bg-color);
+    background-color: var(--bg-color);
+    margin: 0px;
+    overflow: hidden;
+}
