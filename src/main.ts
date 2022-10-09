@@ -19,11 +19,20 @@ const COLUMNS: HTMLTextAreaElement[] = [];
     // throttle したい気がしないでもない ...
     col.addEventListener('input', async () => {
       try {
-        await chrome.storage.sync.set({ [key(i)]: col.value }, () => { });
+        await chrome.storage.sync.set({ [key(i)]: col.value });
       } catch (error) {
         // maybe quota exceeded
-        console.error(error);
-        alert(error);
+        const msg = `error in chrome.storage.sync.set():\n${error}`;
+        console.error(msg);
+        alert(msg);
+      }
+      try {
+        // backup just in case
+        localStorage.setItem(key(i), col.value);
+      } catch (error) {
+        const msg = `error in localStorage.setItem():\n${error}`;
+        console.error(msg);
+        alert(msg);
       }
     });
 
@@ -32,7 +41,7 @@ const COLUMNS: HTMLTextAreaElement[] = [];
   }
 
   let PREV_COLS_LENGTH = 0;
-  const adjust = () => {
+  const adjustAppearance = () => {
     const visibleCols: HTMLTextAreaElement[] = [];
     for (const [i, eachConfig] of CONFIG.columns.entries()) {
       if (eachConfig.minWidth <= window.innerWidth) {
@@ -57,8 +66,8 @@ const COLUMNS: HTMLTextAreaElement[] = [];
     }
     PREV_COLS_LENGTH = visibleCols.length;
   };
-  window.addEventListener('resize', adjust);
-  adjust();
+  window.addEventListener('resize', adjustAppearance);
+  adjustAppearance();
 })();
 
 document.addEventListener('keydown', (event: KeyboardEvent) => {
