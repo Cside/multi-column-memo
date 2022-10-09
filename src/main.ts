@@ -8,6 +8,7 @@ const CONFIG = {
 const COLUMNS: HTMLTextAreaElement[] = [];
 
 (async () => {
+  // storage への get/set
   const key = (i: number) => `textarea-${i}`;
   const data = await chrome.storage.sync.get(
     Array.from(CONFIG.columns.entries(), ([i]) => key(i))
@@ -40,6 +41,7 @@ const COLUMNS: HTMLTextAreaElement[] = [];
     document.body.appendChild(col);
   }
 
+  // サイズ・タブ数の調整
   let PREV_COLS_LENGTH = 0;
   const adjustAppearance = () => {
     const visibleCols: HTMLTextAreaElement[] = [];
@@ -70,6 +72,7 @@ const COLUMNS: HTMLTextAreaElement[] = [];
   adjustAppearance();
 })();
 
+// tab で 4 spaces を挿入
 document.addEventListener('keydown', (event: KeyboardEvent) => {
   if (event.key !== "Tab" || event.isComposing) { return; }
   event.preventDefault();
