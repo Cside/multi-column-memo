@@ -8,6 +8,8 @@
         "sourceMap": false,
         "noEmitOnError": true,
         "jsx": "react",
+        "rootDir": "src",
+        "outDir": "public/js",
         "typeRoots": [
             "node_modules/@types"
         ]

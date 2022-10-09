@@ -5,6 +5,7 @@ const CONFIG = {
     { minWidth: 1_200 },
   ],
 };
+console.log(chrome.action);
 
 const COLUMNS: HTMLTextAreaElement[] = [];
 for (const [i] of CONFIG.columns.entries()) {
