@@ -7,6 +7,7 @@ textarea {
     color: #FFFFFF;
     font-size: 16px;
     line-height: 1.2em;
+    resize: none;
     display: block;
     margin: 0px;
     padding: 10px;

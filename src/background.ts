@@ -1,6 +1,6 @@
 const openMemo = async () => {
   const url = chrome.runtime.getURL('index.html');
-  console.log(url);
+  // TODO: Chrome 拡張のページは tabs.query() に引っかからない説
   const tabs = await chrome.tabs.query({ url });
   if (tabs.length >= 1) {
     await chrome.windows.update(tabs[0].windowId ?? 0, { focused: true });
@@ -10,5 +10,5 @@ const openMemo = async () => {
   chrome.tabs.create({ url });
 };
 
-chrome.runtime.onInstalled.addListener(() => openMemo());
+// chrome.runtime.onInstalled.addListener(() => openMemo());
 chrome.action.onClicked.addListener(() => openMemo());

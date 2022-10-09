@@ -10,6 +10,7 @@
         "jsx": "react",
         "rootDir": "src",
         "outDir": "public/js",
+        "sourceMap": true,
         "typeRoots": [
             "node_modules/@types"
         ]
