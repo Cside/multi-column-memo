@@ -1,3 +1,5 @@
+import throttle from "lodash.throttle";
+
 const CONFIG = {
   columns: [
     { minWidth: 0 },
@@ -6,6 +8,11 @@ const CONFIG = {
   ],
 };
 const COLUMNS: HTMLTextAreaElement[] = [];
+
+// MAX_WRITE_OPERATIONS_PER_HOUR = 1,800 に合わせる
+const throttled = throttle(async (keyValue: Object) => {
+  return await chrome.storage.sync.set(keyValue)
+}, 2000);
 
 (async () => {
   // storage への get/set
@@ -20,7 +27,7 @@ const COLUMNS: HTMLTextAreaElement[] = [];
     // throttle したい気がしないでもない ...
     col.addEventListener('input', async () => {
       try {
-        await chrome.storage.sync.set({ [key(i)]: col.value });
+        await throttled({ [key(i)]: col.value });
       } catch (error) {
         // maybe quota exceeded
         const msg = `error in chrome.storage.sync.set():\n${error}`;
