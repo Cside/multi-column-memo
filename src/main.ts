@@ -10,35 +10,41 @@ const CONFIG = {
 const COLUMNS: HTMLTextAreaElement[] = [];
 
 // MAX_WRITE_OPERATIONS_PER_HOUR = 1,800 に合わせる
-const throttled = throttle(async (keyValue: Object) => {
+const setToSyncStorage = throttle(async (keyValue: Object) => {
   return await chrome.storage.sync.set(keyValue)
 }, 2000);
 
 (async () => {
   // storage への get/set
   const key = (i: number) => `textarea-${i}`;
-  const data = await chrome.storage.sync.get(
-    Array.from(CONFIG.columns.entries(), ([i]) => key(i))
-  );
+  const keys = Array.from(CONFIG.columns.entries(), ([i]) => key(i));
+  let data = await chrome.storage.local.get(keys);
+
+  if (Object.keys(data).length === 0) {
+    const msg = 'failed to get data from storage.local. use storage.sync';
+    console.warn(msg);
+    alert(msg);
+    data = await chrome.storage.sync.get(keys);
+  }
+
   for (const [i] of CONFIG.columns.entries()) {
     const col = document.createElement('textarea');
     col.value = data[key(i)] ?? '';
 
-    // throttle したい気がしないでもない ...
     col.addEventListener('input', async () => {
       try {
-        await throttled({ [key(i)]: col.value });
+        await chrome.storage.local.set({ [key(i)]: col.value });
       } catch (error) {
-        // maybe quota exceeded
-        const msg = `error in chrome.storage.sync.set():\n${error}`;
+        const msg = `error in localStorage.setItem():\n${error}`;
         console.error(msg);
         alert(msg);
       }
+      // backup just in case
       try {
-        // backup just in case
-        localStorage.setItem(key(i), col.value);
+        await setToSyncStorage({ [key(i)]: col.value });
       } catch (error) {
-        const msg = `error in localStorage.setItem():\n${error}`;
+        // maybe quota exceeded
+        const msg = `error in chrome.storage.sync.set():\n${error}`;
         console.error(msg);
         alert(msg);
       }
