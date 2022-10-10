@@ -4,6 +4,9 @@ module.exports = {
         background: "./src/background.ts",
         main: "./src/main.ts",
     },
+    resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+    },
     output: {
         path: `${__dirname}/public/js`,
         filename: "[name].js",
