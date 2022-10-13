@@ -11,4 +11,4 @@ const openMemo = async (tab: chrome.tabs.Tab) => {
 };
 
 // chrome.runtime.onInstalled.addListener(() => openMemo());
-chrome.action.onClicked.addListener(tab => openMemo(tab));
+chrome.action.onClicked.addListener((tab) => openMemo(tab));

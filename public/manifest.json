@@ -1,15 +1,11 @@
 {
-   "manifest_version": 3,
-   "name": "Multi Column Memo",
-   "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "0.3",
-   "action": {},
-   "background": {
-      "service_worker": "js/background.js"
-   },
-   "permissions": [
-      "tabs",
-      "storage",
-      "unlimitedStorage"
-   ]
+  "manifest_version": 3,
+  "name": "Multi Column Memo",
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "version": "0.3",
+  "action": {},
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "permissions": ["tabs", "storage", "unlimitedStorage"]
 }

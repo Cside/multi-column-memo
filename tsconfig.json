@@ -1,18 +1,16 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "module": "ESNext",
-        "target": "ESNext",
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "sourceMap": false,
-        "noEmitOnError": true,
-        "jsx": "react",
-        "rootDir": "src",
-        "outDir": "public/js",
-        "sourceMap": true,
-        "typeRoots": [
-            "node_modules/@types"
-        ]
-    }
+  "compilerOptions": {
+    "strict": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "sourceMap": false,
+    "noEmitOnError": true,
+    "jsx": "react",
+    "rootDir": "src",
+    "outDir": "public/js",
+    "sourceMap": true,
+    "typeRoots": ["node_modules/@types"]
+  }
 }

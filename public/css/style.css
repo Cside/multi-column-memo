@@ -1,23 +1,23 @@
 html {
-    --bg-color: #003333;
-    padding: 0px;
+  --bg-color: #003333;
+  padding: 0px;
 }
 textarea {
-    background-color: var(--bg-color);
-    color: #FFFFFF;
-    font-size: 16px;
-    line-height: 1.2em;
-    resize: none;
-    display: block;
-    margin: 0px;
-    padding: 10px;
-    border: none;
-    overflow: scroll;
+  background-color: var(--bg-color);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.2em;
+  resize: none;
+  display: block;
+  margin: 0px;
+  padding: 10px;
+  border: none;
+  overflow: scroll;
 }
 body {
-    /* border-top: solid 3px var(--bg-color); */
-    background-color: var(--bg-color);
-    margin: 0px;
-    padding: 0px;
-    display: flex;
+  /* border-top: solid 3px var(--bg-color); */
+  background-color: var(--bg-color);
+  margin: 0px;
+  padding: 0px;
+  display: flex;
 }
