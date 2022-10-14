@@ -3,7 +3,7 @@ import { throttleAsync } from './utils';
 const CONFIG = {
   columns: [{ minWidth: 0 }, { minWidth: 640 }, { minWidth: 1_200 }],
 };
-const COLUMNS: HTMLTextAreaElement[] = [];
+const COLUMNS: HTMLElement[] = [];
 
 (async () => {
   // storage への get/set
@@ -15,7 +15,9 @@ const COLUMNS: HTMLTextAreaElement[] = [];
   const setToSyncStorage = throttleAsync(() => {
     const obj: { [key: string]: string } = {};
     for (const [i, key] of keys.entries()) {
-      obj[key] = COLUMNS[i].value;
+      obj[key] = (
+        COLUMNS[i].querySelector('textarea') as HTMLTextAreaElement
+      ).value;
     }
     return chrome.storage.sync.set(obj);
   }, 2000);
@@ -54,15 +56,18 @@ const COLUMNS: HTMLTextAreaElement[] = [];
         }
       }
     });
+    const wrapper = document.createElement('div');
+    wrapper.className = 'textarea-wrapper';
+    wrapper.appendChild(col);
 
-    COLUMNS.push(col);
-    document.body.appendChild(col);
+    document.body.appendChild(wrapper);
+    COLUMNS.push(wrapper);
   }
 
   // サイズ・タブ数の調整
   let PREV_COLS_LENGTH = 0;
   const adjustAppearance = () => {
-    const visibleCols: HTMLTextAreaElement[] = [];
+    const visibleCols: HTMLElement[] = [];
     for (const [i, eachConfig] of CONFIG.columns.entries()) {
       if (eachConfig.minWidth <= window.innerWidth) {
         visibleCols.push(COLUMNS[i]);
@@ -72,7 +77,7 @@ const COLUMNS: HTMLTextAreaElement[] = [];
     }
     for (const col of visibleCols) {
       col.style.width = window.innerWidth / visibleCols.length + 'px';
-      col.style.height = window.innerHeight - 20 + 'px';
+      col.style.height = window.innerHeight - 2 + 'px';
     }
 
     if (visibleCols.length !== PREV_COLS_LENGTH) {

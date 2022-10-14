@@ -2,7 +2,13 @@ html {
   --bg-color: #003333;
   padding: 0px;
 }
+.textarea-wrapper {
+  margin: 0px;
+  padding: 0px;
+}
 textarea {
+  width: 95%;
+  height: 97%;
   background-color: var(--bg-color);
   color: #ffffff;
   font-size: 16px;
@@ -20,4 +26,7 @@ body {
   margin: 0px;
   padding: 0px;
   display: flex;
+}
+* {
+  outline: dotted pink;
 }
