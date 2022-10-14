@@ -2,8 +2,8 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack -w",
-    "eslint": "eslint src/**/*.ts",
-    "eslint:fix": "eslint --fix src/**/*.ts",
+    "eslint": "eslint 'src/**/*.ts'",
+    "eslint:fix": "eslint --fix 'src/**/*.ts'",
     "prettier": "prettier --write . '!public/js/**/*'"
   },
   "devDependencies": {
