@@ -35,31 +35,23 @@ const COLUMNS: HTMLTextAreaElement[] = [];
     col.value = data[key] ?? '';
 
     col.addEventListener('input', async () => {
-      // TODO: あとで共通化
-      try {
-        await chrome.storage.local.set({ [key]: col.value });
-      } catch (error) {
-        const msg = `error in chrome.storage.local.set():\n${error}`;
-        console.error(msg);
-        alert(msg);
-      }
-
-      // backup just in case
-      try {
-        await setToSyncStorage();
-      } catch (error) {
-        // maybe quota exceeded
-        const msg = `error in chrome.storage.sync.set():\n${error}`;
-        console.error(msg);
-        alert(msg);
-      }
-      try {
-        await localStorage.setItem(key, col.value);
-      } catch (error) {
-        // maybe quota exceeded
-        const msg = `error in localStorage.setItem():\n${error}`;
-        console.error(msg);
-        alert(msg);
+      for (const pair of [
+        [
+          'chrome.storage.local.set()',
+          () => chrome.storage.local.set({ [key]: col.value }),
+        ],
+        ['chrome.storage.sync.set()', () => setToSyncStorage()],
+        ['localStorage.setItem()', () => localStorage.setItem(key, col.value)],
+        /* eslint @typescript-eslint/no-explicit-any: 0 */
+      ] as [string, () => any][]) {
+        const [name, fn] = pair;
+        try {
+          await fn();
+        } catch (error) {
+          const msg = `error in ${name}:\n${error}`;
+          console.error(msg);
+          alert(msg);
+        }
       }
     });
 
