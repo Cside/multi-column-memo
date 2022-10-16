@@ -1,4 +1,4 @@
-import { throttleAsync } from './utils';
+import { throttle } from 'throttle-debounce';
 
 const CONFIG = {
   columns: [{ minWidth: 0 }, { minWidth: 640 }, { minWidth: 1_200 }],
@@ -12,7 +12,7 @@ const COLUMNS: HTMLElement[] = [];
 
   // MAX_WRITE_OPERATIONS_PER_HOUR = 1,800 に合わせる
   // TODO: できれば visible なものだけ set したほうが無駄がない気がする...
-  const setToSyncStorage = throttleAsync(() => {
+  const setToSyncStorage = throttle(() => {
     const obj: { [key: string]: string } = {};
     for (const [i, key] of keys.entries()) {
       obj[key] = (
