@@ -5,7 +5,6 @@
     "target": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "sourceMap": false,
     "noEmitOnError": true,
     "jsx": "react",
     "rootDir": "src",

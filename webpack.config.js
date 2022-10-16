@@ -3,7 +3,10 @@ module.exports = {
   entry: {
     background: './src/background.ts',
     main: './src/main.ts',
-    weather: './src/weather.ts',
+    weather: {
+      import: './src/plugins/weather.ts',
+      filename: 'plugins/[name].js',
+    },
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],

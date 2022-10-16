@@ -1,15 +1,44 @@
 import axios from 'axios';
-import { OPEN_WEATHER_URL } from './secrets';
+import { OPEN_WEATHER_URL } from '../secrets';
+
+const USE_FAKE_RES = true;
 
 // https://openweathermap.org/current
 type OpenWeatherMapRes = {
   weather: { icon: string }[];
   main: {
     temp: number;
-    feel_like: number;
-    humidity: number;
+    feel_like?: number;
+    humidity?: number;
   };
   // あと、風速なども気になる。一応。
+};
+/* eslint @typescript-eslint/no-explicit-any: 0 */
+const fakeAxiosRes = (data: any) => ({
+  status: 200,
+  statusText: '',
+  data,
+});
+
+const axiosGet = (url: string) => {
+  if (!USE_FAKE_RES) {
+    console.log('use axios');
+    return axios.get<OpenWeatherMapRes>(url);
+  }
+  switch (url) {
+    case OPEN_WEATHER_URL: {
+      console.log('use cache');
+      const res: OpenWeatherMapRes = {
+        weather: [{ icon: '02d' }],
+        main: {
+          temp: 19,
+        },
+      };
+      return Promise.resolve(fakeAxiosRes(res));
+    }
+    default:
+      throw new Error(`USE_FAKE_RES and unknown url: ${url}`);
+  }
 };
 
 const iconToEmoji = (icon: string) => {
@@ -36,10 +65,11 @@ const iconToEmoji = (icon: string) => {
       throw new Error(`unknown icon: ${icon}`);
   }
 };
+// TODO: TODO: 開発中はレスポンスをキャッシュする機能（開発してるうちに Quota 使い果たすで。。）
 
 const updateCurrentTemp = async () => {
   // TODO: Retry
-  const res = await axios.get(OPEN_WEATHER_URL);
+  const res = await axiosGet(OPEN_WEATHER_URL);
   if (res.status !== 200) {
     throw new Error(`error. ${res.statusText}`);
   }
