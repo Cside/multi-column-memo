@@ -1,1 +1,2 @@
-secrets.ts を gist に
+- secrets.ts を gist に
+- axios.get のエラーハンドリング

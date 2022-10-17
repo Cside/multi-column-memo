@@ -23,10 +23,13 @@
   },
   "jest": {
     "transform": {
-      "\\.[jt]sx?$": ["ts-jest"]
+      "\\.[jt]sx?$": [
+        "ts-jest"
+      ]
     }
   },
   "dependencies": {
+    "as-table": "^1.0.55",
     "axios": "^1.1.3",
     "throttle-debounce": "https://github.com/Cside/throttle-debounce"
   }

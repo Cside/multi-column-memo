@@ -1,60 +1,39 @@
-// https://openweathermap.org/current
-type OpenWeatherMapRes = {
-  weather: { icon: string }[];
-  main: {
-    temp: number;
-    feel_like: number;
-    humidity: number;
-  };
-  // あと、風速なども気になる。一応。
-};
-const CURRENT_WEATHER = 'currentWeather';
-const TODAYS_WEATHER = 'TodaysWeather';
-const TOMORROWS_WEATHER = 'TomorrowsWeather';
-
-// TODO: モジュール切ったほうが良いんじゃね。Y! と Open Weather で。
-const FULL_INFO = {
-  [CURRENT_WEATHER]: {
-    icon: '',
-    temp: 0,
-    feelLike: 0,
-    humidity: 0,
-  },
-  [TODAYS_WEATHER]: {
-    icons: '',
-    highLow: '',
-  },
-  [TOMORROWS_WEATHER]: {
-    icons: '',
-    highLow: '',
-  },
-};
-type KEYS_TYPE =
-  | typeof CURRENT_WEATHER
-  | typeof TODAYS_WEATHER
-  | typeof TOMORROWS_WEATHER;
-const getInfoForTab = (key: KEYS_TYPE) => {
-  switch (key) {
-    case CURRENT_WEATHER:
-      return;
-    case TODAYS_WEATHER:
-      return;
-    case TOMORROWS_WEATHER:
-      return;
-  }
-};
-const getInfoForConsole = (key: KEYS_TYPE) => {
-  switch (key) {
-    case CURRENT_WEATHER:
-      return;
-    case TODAYS_WEATHER:
-      return;
-    case TOMORROWS_WEATHER:
-      return;
-  }
-};
+import asTable from 'as-table';
+import Current from './weather/current';
+import Forecast from './weather/forecast';
 
 // setInterval(() => {
 //   updateCurrentTemp();
 // }, 1_000 * 60 * 20); // Quta: 41 calls per hoour
 // updateCurrentTemp();
+
+(async () => {
+  const current = new Current();
+  const forecast = new Forecast();
+  await Promise.all([
+    current.fetch({ fake: true }),
+    forecast.fetch({ fake: true }),
+  ]);
+
+  document.title = [
+    ...current.getMessagesForTab(),
+    ...forecast.getMessagesForTab(),
+  ].join('　');
+
+  console.clear();
+  // 絵文字だとちょっと崩れる問題。
+  // 環境によって文字の幅は異なるため、直すのは困難と思われる...
+  // https://github.com/xpl/as-table/issues/12
+  console.log(
+    '%c' +
+      asTable([
+        ...current.getMessagesForConsole(),
+        ...forecast.getMessagesForConsole(),
+      ]),
+    `
+      font-size: 25px;
+      font-family: Monaco, "Apple Color Emoji";
+      line-height: 2.0em;
+    `,
+  );
+})();

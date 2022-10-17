@@ -7,9 +7,8 @@
     "esModuleInterop": true,
     "noEmitOnError": true,
     "jsx": "react",
-    "rootDir": "src",
-    "outDir": "public/js",
-    "sourceMap": true,
-    "typeRoots": ["node_modules/@types"]
+    "rootDir": "./src",
+    "outDir": "./public/js",
+    "sourceMap": true
   }
 }
