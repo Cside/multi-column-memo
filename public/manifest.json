@@ -7,5 +7,6 @@
   "background": {
     "service_worker": "js/background.js"
   },
+  "host_permissions": ["https://weather.yahoo.co.jp/weather/jp/13/4410.html"],
   "permissions": ["tabs", "storage", "unlimitedStorage"]
 }
