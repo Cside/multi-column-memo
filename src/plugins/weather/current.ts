@@ -33,7 +33,9 @@ export default class Current implements Fetcher {
     } else {
       const res = await axios.get(OPEN_WEATHER_URL);
       if (res.status !== 200) {
-        throw new Error(`error: ${res.statusText}, url: ${OPEN_WEATHER_URL}`);
+        const message = `error: ${res.statusText}, url: ${URL}`;
+        alert(message);
+        throw new Error(message);
       }
       data = res.data;
     }
@@ -45,7 +47,9 @@ export default class Current implements Fetcher {
   }
 
   getMessagesForTab(): string[] {
-    return [this.icon + Math.round(this.temp)];
+    return [
+      sprintf('%s%f (%d)', this.icon, Math.round(this.temp), this.humidity),
+    ];
   }
 
   getMessagesForConsole(): string[][] {

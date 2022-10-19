@@ -26,7 +26,9 @@ export default class Forecast implements Fetcher {
     } else {
       const res = await axios.get(URL);
       if (res.status !== 200) {
-        throw new Error(`error: ${res.statusText}, url: ${URL}`);
+        const message = `error: ${res.statusText}, url: ${URL}`;
+        alert(message);
+        throw new Error(message);
       }
       html = res.data;
     }
