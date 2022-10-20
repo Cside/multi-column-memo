@@ -3,7 +3,7 @@ import { setIntervalOverSleep } from '../utils';
 import Current from './weather/current';
 import Forecast from './weather/forecast';
 
-const FAKE = false;
+const FAKE = true;
 
 (async () => {
   const current = new Current();
