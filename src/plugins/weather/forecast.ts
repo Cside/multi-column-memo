@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosGet from '../../axios';
 
 const URL = 'https://weather.yahoo.co.jp/weather/jp/13/4410.html';
 
@@ -24,13 +24,7 @@ export default class Forecast implements Fetcher {
     if (fake) {
       html = fakeHTML();
     } else {
-      const res = await axios.get(URL);
-      if (res.status !== 200) {
-        const message = `error: ${res.statusText}, url: ${URL}`;
-        alert(message);
-        throw new Error(message);
-      }
-      html = res.data;
+      html = (await axiosGet(URL)).data;
     }
 
     const doc = new DOMParser().parseFromString(html, 'text/html');

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosGet from '../../axios';
 import { sprintf } from '../../utils';
 import { OPEN_WEATHER_URL } from './secrets';
 
@@ -31,13 +31,7 @@ export default class Current implements Fetcher {
         },
       };
     } else {
-      const res = await axios.get(OPEN_WEATHER_URL);
-      if (res.status !== 200) {
-        const message = `error: ${res.statusText}, url: ${URL}`;
-        alert(message);
-        throw new Error(message);
-      }
-      data = res.data;
+      data = (await axiosGet(OPEN_WEATHER_URL)).data;
     }
 
     this.icon = iconToEmoji(data.weather[0].icon);

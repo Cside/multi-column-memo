@@ -3,7 +3,7 @@ import { setIntervalOverSleep } from '../utils';
 import Current from './weather/current';
 import Forecast from './weather/forecast';
 
-const FAKE = true;
+const FAKE = false;
 
 (async () => {
   const current = new Current();
@@ -18,7 +18,8 @@ const FAKE = true;
     // 絵文字だとちょっと崩れる問題。
     // 環境によって文字の幅は異なるため、直すのは困難と思われる...
     // https://github.com/xpl/as-table/issues/12
-    console.clear();
+
+    // console.clear();
     console.log(
       '%c' +
         asTable([
