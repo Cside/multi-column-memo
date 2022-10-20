@@ -3,7 +3,7 @@ import { setIntervalOverSleep } from '../utils';
 import Current from './weather/current';
 import Forecast from './weather/forecast';
 
-const FAKE = true;
+const FAKE = false;
 
 (async () => {
   const current = new Current();
@@ -20,6 +20,7 @@ const FAKE = true;
     // https://github.com/xpl/as-table/issues/12
 
     // console.clear();
+    console.log('refreshed at: ' + getTime());
     console.log(
       '%c' +
         asTable([
@@ -49,3 +50,14 @@ const FAKE = true;
     render();
   }, 1_000 * 60 * 60 * 4);
 })();
+
+function getTime() {
+  const date = new Date();
+  return (
+    ('0' + date.getHours()).slice(-2) +
+    ':' +
+    ('0' + date.getMinutes()).slice(-2) +
+    ':' +
+    ('0' + date.getSeconds()).slice(-2)
+  );
+}
