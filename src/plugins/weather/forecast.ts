@@ -2,18 +2,15 @@ import axiosGet from '../../axios';
 import { sprintf } from '../../utils';
 import { YAHOO_WEATHER_URLS } from './secrets';
 
+type Data = {
+  icons: string;
+  high: string;
+  low: string;
+  dawn?: number[];
+};
 export default class Forecast implements Fetcher {
-  today = {
-    icons: '',
-    high: '',
-    low: '',
-    dawn: [] as number[],
-  };
-  tomorrow = {
-    icons: '',
-    high: '',
-    low: '',
-  };
+  today: Data = defaultData();
+  tomorrow: Data = defaultData();
   async fetch({ fake }: { fake: boolean } = { fake: false }) {
     let Htmls: { data: string }[];
     if (fake) {
@@ -70,7 +67,7 @@ export default class Forecast implements Fetcher {
         format,
         this.today.icons,
         temp(this.today.high),
-        Math.min(...this.today.dawn),
+        Math.min(...(this.today.dawn || [])),
       ),
       sprintf(
         format,
@@ -86,7 +83,7 @@ export default class Forecast implements Fetcher {
       [
         ['Today', this.today],
         ['Tomorrow', this.tomorrow],
-      ] as [string, { icons: string; high: string; low: string }][]
+      ] as [string, Data][]
     ).map((pair) => {
       const [name, data] = pair;
       return [
@@ -117,6 +114,10 @@ export function weatherToIcons(weather: string) {
       }
     })
     .join('');
+}
+
+function defaultData(): Data {
+  return { icons: '', high: '', low: '' };
 }
 
 function fakeHtmls() {

@@ -37,9 +37,9 @@ const FAKE = false;
     console.log(
       sprintf(
         '[0:00] %d℃  [3:00] %d℃  [6:00] %d℃',
-        forecast.today.dawn[0],
-        forecast.today.dawn[1],
-        forecast.today.dawn[2],
+        forecast.today.dawn?.[0] || '',
+        forecast.today.dawn?.[1] || '',
+        forecast.today.dawn?.[2] || '',
       ),
     );
     console.log(
@@ -48,8 +48,6 @@ const FAKE = false;
         ['ピンポイント：', YAHOO_WEATHER_URLS.PINPOINT],
       ]),
     );
-    console.log();
-    console.log();
   };
   await Promise.all([
     current.fetch({ fake: FAKE }),
