@@ -1,7 +1,8 @@
 import asTable from 'as-table';
-import { setIntervalOverSleep } from '../utils';
+import { setIntervalOverSleep, sprintf } from '../utils';
 import Current from './weather/current';
 import Forecast from './weather/forecast';
+import { YAHOO_WEATHER_URLS } from './weather/secrets';
 
 const FAKE = false;
 
@@ -33,6 +34,22 @@ const FAKE = false;
       line-height: 2.0em;
     `,
     );
+    console.log(
+      sprintf(
+        '[0:00] %d℃  [3:00] %d℃  [6:00] %d℃',
+        forecast.today.dawn[0],
+        forecast.today.dawn[1],
+        forecast.today.dawn[2],
+      ),
+    );
+    console.log(
+      asTable([
+        ['週間予報：', YAHOO_WEATHER_URLS.WEEKLY],
+        ['ピンポイント：', YAHOO_WEATHER_URLS.PINPOINT],
+      ]),
+    );
+    console.log();
+    console.log();
   };
   await Promise.all([
     current.fetch({ fake: FAKE }),

@@ -41,9 +41,7 @@ export default class Current implements Fetcher {
   }
 
   getMessagesForTab(): string[] {
-    return [
-      sprintf('%s%f (%d)', this.icon, Math.round(this.temp), this.humidity),
-    ];
+    return [sprintf('%s%f', this.icon, Math.round(this.feelsLike))];
   }
 
   getMessagesForConsole(): string[][] {
