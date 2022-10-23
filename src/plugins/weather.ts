@@ -6,6 +6,7 @@ import { YAHOO_WEATHER_URLS } from './weather/secrets';
 
 const FAKE = false;
 
+// TODO: そろそろリファクタしたほうが。。
 (async () => {
   const current = new Current();
   const forecast = new Forecast();
@@ -14,7 +15,7 @@ const FAKE = false;
     document.title = [
       ...current.getMessagesForTab(),
       ...forecast.getMessagesForTab(),
-    ].join('　');
+    ].join(' ');
 
     // 絵文字だとちょっと崩れる問題。
     // 環境によって文字の幅は異なるため、直すのは困難と思われる...

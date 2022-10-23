@@ -6,6 +6,7 @@ type Data = {
   icons: string;
   high: string;
   low: string;
+  daytime?: number[];
   dawn?: number[];
 };
 export default class Forecast implements Fetcher {
@@ -49,6 +50,12 @@ export default class Forecast implements Fetcher {
     {
       const doc = new DOMParser().parseFromString(Htmls[1].data, 'text/html');
 
+      this.today.daytime = [
+        ...doc.querySelectorAll<HTMLElement>(
+          '#yjw_pinpoint_today tr:nth-of-type(3) td:nth-of-type(n+4)',
+        ),
+      ].map((elem) => Number(elem.innerText.trim()));
+      console.log(this.today.daytime);
       this.today.dawn = [
         ...doc.querySelectorAll<HTMLElement>(
           '#yjw_pinpoint_tomorrow ' +
@@ -66,7 +73,7 @@ export default class Forecast implements Fetcher {
       sprintf(
         format,
         this.today.icons,
-        temp(this.today.high),
+        Math.max(...(this.today.daytime || [])),
         Math.min(...(this.today.dawn || [])),
       ),
       sprintf(
@@ -133,8 +140,8 @@ function fakeHtmls() {
                 <tr>
                   <td>
                     <ul class="temp">
-                      <li class="high">20℃[-10]</li>
-                      <li class="low">10℃[-1]</li>
+                      <li class="high">55℃[-44]</li>
+                      <li class="low">33℃[-33]</li>
                     </ul>
                     <p class="pict">
                       曇のち晴
@@ -142,8 +149,8 @@ function fakeHtmls() {
                   </td>
                   <td>
                     <ul class="temp">
-                      <li class="high">12℃[-10]</li>
-                      <li class="low">10℃[-1]</li>
+                      <li class="high">66℃[-40]</li>
+                      <li class="low">44℃[-34]</li>
                     </ul>
                     <p class="pict">
                       雨のち雪

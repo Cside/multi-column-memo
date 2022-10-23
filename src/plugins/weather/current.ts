@@ -25,8 +25,8 @@ export default class Current implements Fetcher {
       data = {
         weather: [{ icon: '02d' }],
         main: {
-          temp: 19.52,
-          feels_like: 20.67,
+          temp: 39.52,
+          feels_like: 44.67,
           humidity: 50,
         },
       };
