@@ -1,5 +1,7 @@
-import axios, { AxiosError } from 'axios';
+import Axios, { AxiosError } from 'axios';
 import axiosRetry from 'axios-retry';
+
+const axios = Axios.create({ timeout: 1000 * 10 });
 
 axiosRetry(axios, {
   retries: 3,
