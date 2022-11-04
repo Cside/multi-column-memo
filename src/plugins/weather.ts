@@ -7,7 +7,7 @@ import { YAHOO_WEATHER_URLS } from './weather/secrets';
 const FAKE = false;
 
 // TODO: そろそろリファクタしたほうが。。
-(async () => {
+(() => {
   const current = new Current();
   const forecast = new Forecast();
 
@@ -50,21 +50,21 @@ const FAKE = false;
       ]),
     );
   };
-  await Promise.all([
-    current.fetch({ fake: FAKE }),
-    forecast.fetch({ fake: FAKE }),
-  ]);
-  render();
-
-  setIntervalOverSleep(async () => {
+  const fetchAndRenderCurrent = async () => {
+    document.title = 'Loading Current ...';
     await current.fetch({ fake: FAKE });
     render();
-  }, 1_000 * 60 * 20);
-
-  setIntervalOverSleep(async () => {
+  };
+  const fetchAndRenderForecast = async () => {
+    document.title = 'Loading Forecast ...';
     await forecast.fetch({ fake: FAKE });
     render();
-  }, 1_000 * 60 * 60 * 4);
+  };
+  setIntervalOverSleep(fetchAndRenderCurrent, 1_000 * 60 * 20);
+  setIntervalOverSleep(fetchAndRenderForecast, 1_000 * 60 * 60 * 4);
+
+  fetchAndRenderCurrent();
+  fetchAndRenderForecast();
 })();
 
 function getTime() {
