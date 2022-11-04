@@ -55,7 +55,6 @@ export default class Forecast implements Fetcher {
           '#yjw_pinpoint_today tr:nth-of-type(3) td:nth-of-type(n+4)',
         ),
       ].map((elem) => Number(elem.innerText.trim()));
-      console.log(this.today.daytime);
       this.today.dawn = [
         ...doc.querySelectorAll<HTMLElement>(
           '#yjw_pinpoint_tomorrow ' +
