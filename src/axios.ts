@@ -5,14 +5,15 @@ import { sprintf } from './utils';
 const axios = Axios.create({ timeout: 1000 * 10 });
 
 axiosRetry(axios, {
-  retries: 3,
+  retries: 5,
   retryDelay: () => 10 * 1000,
   retryCondition: () => true,
   onRetry: (cnt: number, error: Error, config: AxiosRequestConfig) => {
     console.log(
       sprintf(
-        'Retry count: %s, url: %s, error: %s',
+        'Retry count: %s, time: %s, url: %s, error: %s',
         String(cnt),
+        new Date().toLocaleTimeString(),
         config.url || '',
         error.toString(),
       ),
