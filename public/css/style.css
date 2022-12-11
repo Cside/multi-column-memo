@@ -19,9 +19,9 @@ textarea {
   padding: 10px;
   border: none;
   overflow: scroll;
+  /* outline: none; */
 }
 body {
-  /* border-top: solid 3px var(--bg-color); */
   background-color: var(--bg-color);
   margin: 0px;
   padding: 0px;

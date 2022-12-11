@@ -42,7 +42,7 @@ const COLUMNS: HTMLElement[] = [];
           'chrome.storage.local.set()',
           () => chrome.storage.local.set({ [key]: col.value }),
         ],
-        ['chrome.storage.sync.set()', () => setToSyncStorage()],
+        // ['chrome.storage.sync.set()', () => setToSyncStorage()],
         ['localStorage.setItem()', () => localStorage.setItem(key, col.value)],
         /* eslint @typescript-eslint/no-explicit-any: 0 */
       ] as [string, () => any][]) {
