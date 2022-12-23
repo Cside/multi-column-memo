@@ -1,5 +1,3 @@
-import { throttle } from 'throttle-debounce';
-
 const CONFIG = {
   columns: [{ minWidth: 0 }, { minWidth: 640 }, { minWidth: 1_200 }],
 };
@@ -9,18 +7,6 @@ const COLUMNS: HTMLElement[] = [];
   // storage への get/set
   const getKey = (i: number) => `textarea-${i}`;
   const keys = Array.from(CONFIG.columns.entries(), ([i]) => getKey(i));
-
-  // MAX_WRITE_OPERATIONS_PER_HOUR = 1,800 に合わせる
-  // TODO: できれば visible なものだけ set したほうが無駄がない気がする...
-  const setToSyncStorage = throttle(() => {
-    const obj: { [key: string]: string } = {};
-    for (const [i, key] of keys.entries()) {
-      obj[key] = (
-        COLUMNS[i].querySelector('textarea') as HTMLTextAreaElement
-      ).value;
-    }
-    return chrome.storage.sync.set(obj);
-  }, 2000);
 
   let data = await chrome.storage.local.get(keys);
 

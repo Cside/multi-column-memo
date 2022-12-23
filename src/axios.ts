@@ -2,7 +2,7 @@ import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import axiosRetry from 'axios-retry';
 import { sprintf } from './utils';
 
-const axios = Axios.create({ timeout: 1000 * 10 });
+const axios = Axios.create();
 
 axiosRetry(axios, {
   retries: 5,
