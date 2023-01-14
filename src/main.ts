@@ -1,5 +1,10 @@
 const CONFIG = {
-  columns: [{ minWidth: 0 }, { minWidth: 640 }, { minWidth: 1_200 }],
+  columns: [
+      { minWidth:     0 },
+      { minWidth:   600 },
+      { minWidth: 1_200 },
+      { minWidth: 1_800 },
+  ],
 };
 const COLUMNS: HTMLElement[] = [];
 
