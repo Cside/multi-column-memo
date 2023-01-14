@@ -26,6 +26,7 @@ const COLUMNS: HTMLElement[] = [];
     const key = getKey(i);
     const col = document.createElement('textarea');
     col.value = data[key] ?? '';
+    col.setAttribute('spellcheck', 'false');
 
     col.addEventListener('input', async () => {
       for (const pair of [
